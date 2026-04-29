@@ -1,4 +1,4 @@
-export type IProduct = {
+export interface IProduct  {
     id: number;
     name: string;
     qty: number;
@@ -10,7 +10,7 @@ export type IProduct = {
     };
     productImage? : IProductImage[]
 };
-export type IProductImage = {
+export interface IProductImage {
     id: number;
     productId: number;
     imageUrl: string;

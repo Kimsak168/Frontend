@@ -1,7 +1,8 @@
 "use client";
 import { useForm } from "@tanstack/react-form";
-import {  z } from "zod";
+import { z } from "zod";
 import { Button } from "../components/ui/button";
+
 import {
     Field,
     FieldContent,
@@ -58,7 +59,7 @@ export function ProductForm({ open, setOpen, product }: Props) {
     const categories = data?.data ?? [];
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
-    const [deletedFiles, setDeletedFiles] = useState<number[]>([]); 
+    const [deletedFiles, setDeletedFiles] = useState<number[]>([]);
     const { mutate: createProduct } = useCreateProduct();
     const { mutate: updateProductMutate } = useUpdateProduct();
     const { mutate: uploadProductImageMutate } = useUploadProductImage();
@@ -314,46 +315,46 @@ export function ProductForm({ open, setOpen, product }: Props) {
                         {product?.productImage && product.productImage?.length > 0 && (
                             <div className="space-y-2">
                                 {product.productImage
-                                        .filter((image) => !deletedFiles.includes(image.id))
+                                    .filter((image) => !deletedFiles.includes(image.id))
                                     .map(
-                                    (image: IProductImage, index: number) => (
-                                        <div
-                                            key={index}
-                                            className="border border-border rounded-lg p-2 flex flex-col"
-                                        >
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-18 h-14 bg-muted rounded-sm flex items-center justify-center self-start row-span-2 overflow-hidden">
-                                                    <img
-                                                        src={image.imageUrl}
-                                                        alt={image.fileName}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
+                                        (image: IProductImage, index: number) => (
+                                            <div
+                                                key={index}
+                                                className="border border-border rounded-lg p-2 flex flex-col"
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-18 h-14 bg-muted rounded-sm flex items-center justify-center self-start row-span-2 overflow-hidden">
+                                                        <img
+                                                            src={image.imageUrl}
+                                                            alt={image.fileName}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    </div>
 
-                                                <div className="flex-1 pr-1">
-                                                    <div className="flex justify-between items-center">
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-sm text-foreground truncate max-w-[250px]">
-                                                                {image.fileName}
-                                                            </span>
+                                                    <div className="flex-1 pr-1">
+                                                        <div className="flex justify-between items-center">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="text-sm text-foreground truncate max-w-[250px]">
+                                                                    {image.fileName}
+                                                                </span>
+                                                            </div>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon-sm"
+                                                                className="bg-transparent! hover:text-red-500"
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    setDeletedFiles((prev) => [...prev, image.id])
+                                                                }}
+                                                            >
+                                                                <Trash2 className="h-4 w-4" />
+                                                            </Button>
                                                         </div>
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="icon-sm"
-                                                            className="bg-transparent! hover:text-red-500"
-                                                            type="button"
-                                                            onClick={() => {
-                                                                setDeletedFiles((prev) => [...prev, image.id])
-                                                            }}
-                                                        >
-                                                            <Trash2 className="h-4 w-4" />
-                                                        </Button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ),
-                                )}
+                                        ),
+                                    )}
                             </div>
                         )}
 

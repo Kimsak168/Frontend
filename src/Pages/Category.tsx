@@ -41,9 +41,9 @@ const Category = () => {
     const [value] = useDebounce(searchInput, 500);
     console.log("Debounced value:", value);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-    const { data: categoryData, isLoading } = useCategories(value, page, limit);
+    const { data: categoryData,} = useCategories(value, page, limit);
     const [category, setCategory] = useState<ICategory | undefined>(undefined);
-    const pagination = categoryData?.pagination;
+    const pagination = categoryData?.data?.pagination;
     const handleEdit = (category: ICategory) => {
         setCategory(category);
         setIsOpen(true);

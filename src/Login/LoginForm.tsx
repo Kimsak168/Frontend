@@ -29,6 +29,9 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 
     const [isLoading, setIsLoading] = useState(false);
+    <Button disabled={isLoading}>
+    {isLoading ? "Loading..." : "Submit"}
+    </Button>
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const { mutate: loginMutate } = useAuthLogin();
@@ -51,7 +54,7 @@ export function LoginForm({
                             navigate("/admin/products");
                             setAccessToken(res.data.token);
                         } else {
-                            setError(res?.message || "Login failed");
+                            setError(res?.data.message || "Login failed");
                         }
                     },
                     onSettled: () => {

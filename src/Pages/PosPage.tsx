@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,7 +10,8 @@ import {
     Trash2,
     QrCode,
     PlusIcon,
-    MinusIcon
+    MinusIcon,
+    Loader2
 } from "lucide-react";
 import { useProducts } from "@/hooks/useProduct";
 import { useCategories } from "@/hooks/useCategories";
@@ -161,7 +161,6 @@ export default function PosPage() {
 
                             setIsOpen(false);
                             AbaPayway?.checkout();
-                            
                         }
                     }
                 })
@@ -175,20 +174,20 @@ export default function PosPage() {
             }
         })
     }
-useEffect(() => {
-    const tranId =
-        searchParams.get("tranId") ||
-        searchParams.get("tran_id") ||
-        searchParams.get("payment_ref");
+    useEffect(() => {
+        const tranId =
+            searchParams.get("tranId") ||
+            searchParams.get("tran_id") ||
+            searchParams.get("payment_ref");
 
-    if (!tranId) return;
+        if (!tranId) return;
 
-    checkTransactionMutate(tranId, {
-        onSuccess: () => {
-            setSearchParams({});
-        },
-    });
-}, [searchParams, checkTransactionMutate, setSearchParams]);
+        checkTransactionMutate(tranId, {
+            onSuccess: () => {
+                setSearchParams({});
+            },
+        });
+    }, [searchParams, checkTransactionMutate, setSearchParams]);
     useEffect(() => {
         if (isSuccess) {
             const timer = setTimeout(() => {
@@ -491,8 +490,14 @@ useEffect(() => {
                     </p>
                 </div>
 
-                <Button onClick={handPlaceOrder} type="button" className="mt-6 h-12 w-full rounded-xl bg-blue-600 text-base font-semibold text-white hover:bg-blue-700">
-                    Please Order
+                <Button
+                    onClick={handPlaceOrder}
+                    type="button"
+                    disabled={loading}
+                    className="mt-6 h-12 w-full rounded-xl bg-blue-600 text-base font-semibold text-white hover:bg-blue-700 flex items-center justify-center gap-2"
+                >
+                    {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+                    {loading ? "Processing..." : "Please Order"}
                 </Button>
             </SharedDialog>
             <SharedDialog

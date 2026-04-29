@@ -22,9 +22,9 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
           </Route>
         <Route path="/" element={<DashboardLayout />}>
-            <Route path="/admin/products" element={<Product />} />
-            <Route path="/admin/categories" element={<Category />} />
-            <Route path="/admin/pos" element={<PosPage />} />
+            <Route path="admin/products" element={<Product />} />
+            <Route path="admin/categories" element={<Category />} />
+            <Route path="admin/pos" element={<PosPage />} />
             {/* <Route path="/admin/forget-password" element={<ForgotPasswordForm />} /> */}
           </Route>
         </Routes>

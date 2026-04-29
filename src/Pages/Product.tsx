@@ -5,7 +5,7 @@ import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { useState } from "react";
 import { ProductForm } from "../Products/ProductForm";
-import type { Product } from "../Products/columns";
+
 import { useDebounce } from 'use-debounce';
 import {
         Pagination,
@@ -29,6 +29,7 @@ import { useProducts } from "../hooks/useProduct";
 import { FieldLabel } from "../components/ui/field";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "@/utils/tokenStorage";
+import type { IProduct } from "@/types/Product";
 
 const Product = () => {
         const [page, setPage] = useState(1);
@@ -37,17 +38,17 @@ const Product = () => {
         const [searchInput, setSearchInput] = useState("");
         const [search, setSearch] = useState("");
         const [value] = useDebounce(searchInput, 500);
-        const [product, setProduct] = useState<Product | undefined>(undefined);
+        const [product, setProduct] = useState<IProduct | undefined>(undefined);
         const [limit, setLimit] = useState(10);
 
-        const handleEdit = (product: Product) => {
+        const handleEdit = (product: IProduct) => {
                 console.log("Edit product", product);
                 setProduct(product);
                 setOpen(true);
         };
 
         const { data: productData, isLoading } = useProducts(search || value, page, limit);
-        const pagination = productData?.pagination;
+        const pagination = productData?.data?.pagination;
 
         if (isLoading) {
                 return (
