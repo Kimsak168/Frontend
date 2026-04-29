@@ -40,8 +40,7 @@ import type { IProduct, IProductImage } from "@/types/Product";
 const productSchema = z.object({
     name: z.string().min(1, "Name is required"),
     price: z.number().min(0, "Price must be 0 or more"),
-    categoryId: z.union([z.undefined(), z.number().min(1, "Category is required")])
-        .refine((value) => value !== undefined, { message: "Category is required" }),
+    categoryId: z.number().min(1, "Category is required"),
     qty: z.number().int().min(0, "Quantity must be 0 or more"),
 });
 
